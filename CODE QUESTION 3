@@ -1,0 +1,29 @@
+#QUESTION 3:
+
+
+import random
+
+def findkthlargest(nums,k):
+    target = len(nums)-k
+    def quickselect(left,right):
+      pivot_idx = random.randint(left,right)
+      pivot = nums[pivot_idx]
+      nums[pivot_idx],nums[right] = nums[right],nums[pivot_idx]
+      store = left
+      for i in range(left,right):
+        if nums[i]<pivot:
+          nums[store],nums[i] = nums[i],nums[store]
+          store+=1
+      nums[store],nums[right] = nums[right],nums[store]
+      if store == target:
+        return nums[target]
+      elif store<target:
+        return quickselect(store+1,right)
+      else:
+        return quickselect(left,store-1)
+    return quickselect(0,len(nums)-1)
+
+
+nums = [3, 2, 1, 5, 6, 4]  
+k = 2
+findkthlargest(nums,k)
